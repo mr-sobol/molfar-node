@@ -24,6 +24,13 @@ const sanitizeState = state => {
 
 }
 
+
+/**
+ * @param {Object} req
+ * @param {String} req.output Формат відповіді від сервісу 
+ * @param {Object} res
+ * @return {Promise}
+ */
 const sendResponse = (req, res) => {
 
     let data = sanitizeState(container().state)
@@ -37,6 +44,14 @@ const sendResponse = (req, res) => {
 
 }
 
+
+/**
+ * @param {Object} req
+ * @param {String} req.id  Ідентифікатор сервісу, для завантаження
+ * @param {String} req.repo
+ * @param {Object} res
+ * @return {Promise}
+ */
 const deployMicroserviceHandler = async (req, res) => {
     try {
 
@@ -55,6 +70,13 @@ const deployMicroserviceHandler = async (req, res) => {
     
 }
 
+/**
+ * @param {Object} req
+ * @param {String} req.id  Ідентифікатор сервісу, для запуску
+ * @param {String} req.service Конфігурація для сервісу
+ * @param {Object} res
+ * @return {Promise}
+ */
 const startMicroserviceHandler = async (req, res) => {
     try {
 
@@ -69,6 +91,12 @@ const startMicroserviceHandler = async (req, res) => {
 
 }
 
+/**
+ * @param {Object} req
+ * @param {String} req.id  Ідентифікатор сервісу, для зупинки
+ * @param {Object} res
+ * @return {Promise}
+ */
 const terminateMicroserviceHandler = async (req, res) => {
     try {
     
@@ -83,6 +111,13 @@ const terminateMicroserviceHandler = async (req, res) => {
 
 }
 
+
+/**
+ * @param {Object} req
+ * @param {String} req.id  Ідентифікатор сервісу, для вивантаження
+ * @param {Object} res
+ * @return {Promise}
+ */
 const undeployMicroserviceHandler = async (req, res) => {
     try {
     
@@ -97,6 +132,13 @@ const undeployMicroserviceHandler = async (req, res) => {
 
 }
 
+/**
+ * @param {Object} req
+ * @param {String} req.id  Ідентифікатор сервісу, для налашування
+ * @param {String} req.service  Конфігурація для сервісу
+ * @param {Object} res
+ * @return {Promise}
+ */
 const setMicroserviceConfigHandler = (req, res) => {
     try {
         
@@ -118,6 +160,7 @@ module.exports = [
         path: "/state",
         handler: sendResponse
     },
+    /*
     {
         method: "post",
         path: "/state",
@@ -129,61 +172,60 @@ module.exports = [
         path: "/deploy/:id",
         handler: deployMicroserviceHandler
     },
-
+    */
+    /*
+    {
+        method: "get",
+        path: "/deploy",
+        handler: deployMicroserviceHandler
+    },
+    */
     {
         method: "post",
         path: "/deploy/:id",
         handler: deployMicroserviceHandler
     },
-
-    {
-        method: "get",
-        path: "/deploy",
-        handler: deployMicroserviceHandler
-    },
-
+   
     {
         method: "post",
         path: "/deploy",
         handler: deployMicroserviceHandler
     },
-
+    /*
     {
         method: "get",
         path: "/undeploy/:id",
         handler: undeployMicroserviceHandler
     },
-
-    {
-        method: "post",
-        path: "/undeploy/:id",
-        handler: undeployMicroserviceHandler
-    },
-
+    */
+    /*
     {
         method: "get",
         path: "/undeploy",
         handler: undeployMicroserviceHandler
     },
-
+    */
+    {
+        method: "post",
+        path: "/undeploy/:id",
+        handler: undeployMicroserviceHandler
+    },
     {
         method: "post",
         path: "/undeploy",
         handler: undeployMicroserviceHandler
     },
-
     {
         method: "post",
         path: "/start",
         handler: startMicroserviceHandler
     },
-
     {
         method: "post",
         path: "/start/:id",
         handler: startMicroserviceHandler
     },
-
+    /*
     {
         method: "get",
         path: "/start",
@@ -195,7 +237,7 @@ module.exports = [
         path: "/start/:id",
         handler: startMicroserviceHandler
     },
-
+    */
     {
         method: "post",
         path: "/config",
@@ -207,29 +249,31 @@ module.exports = [
         path: "/config/:id",
         handler: setMicroserviceConfigHandler
     },
-
+    
     {
-        method: "get",
+        method: "post",
         path: "/terminate",
         handler: terminateMicroserviceHandler
     },
-
+    
     {
         method: "post",
         path: "/terminate/:id",
         handler: terminateMicroserviceHandler
     },
+    /*
     {
         method: "get",
         path: "/terminate",
         handler: terminateMicroserviceHandler
     },
-
+    */
+   /*
     {
         method: "get",
         path: "/terminate/:id",
         handler: terminateMicroserviceHandler
     }
-
+    */
 
 ]

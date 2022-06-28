@@ -10,7 +10,7 @@ const s = new State({
     filename: "./.state/data.json",
     initialState: {
             type: "@molfar/molfar-node",
-            uri: `http://${config.service.host}:${config.service.port}`,
+            uri: config.service.usePort ? `http://${config.service.host}:${config.service.port}` : `http://${config.service.host}`,
             instance: v4(),
             startedAt: new Date(),
             microservices:[]

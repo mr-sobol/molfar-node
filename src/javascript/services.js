@@ -7,11 +7,20 @@ const fse = require("fs-extra")
 
 const DEPLOYMENT_DIR = config.service.deploymentDir
 
-
+/**
+ * @param {String} servicePath Шлях розташування 
+ * @param {String} id   Ідентифікатор
+ * @return {Promise}
+ */
 const holdMicroservice = (servicePath, id) => {
 	container().hold(servicePath, id)
 }
 
+/**
+ * @param {String} id   Ідентифікатор
+ * @param {String} repo  Шлях до сервісу
+ * @return {Promise}
+ */
 const deployMicroservice = async (id, repo) => {
     try {
 
@@ -38,6 +47,10 @@ const deployMicroservice = async (id, repo) => {
     
 }
 
+/**
+ * @param {String} id   Ідентифікатор
+ * @return {Promise}
+ */
 const undeployMicroservice =  async id => {
     try {
         
@@ -62,6 +75,11 @@ const undeployMicroservice =  async id => {
 
 } 
 
+/**
+ * @param {String} id   Ідентифікатор
+ * @param {Object} config 
+ * @return {Promise}
+ */
 const startMicroservice = async (id, config)  => {
     try {
         
@@ -101,6 +119,10 @@ const startMicroservice = async (id, config)  => {
 
 }
 
+/**
+ * @param {String} id   Ідентифікатор
+ * @return {Promise}
+ */
 const terminateMicroservice = async id => {
     try {
         
@@ -130,6 +152,12 @@ const terminateMicroservice = async id => {
     }
 }
 
+
+/**
+ * @param {String} id   Ідентифікатор
+ * @param {Object} config 
+ * @return {Promise}
+ */
 const setMicroserviceConfig = (id, config) => {
     try {
         
