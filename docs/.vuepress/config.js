@@ -15,7 +15,7 @@ module.exports = {
     }]
   ],
   port: 3030,
-  base: '/jace-ita/',
+  base: '/molfar-node/',
   theme: 'cool',
   // dest: 'dist',
   head: [

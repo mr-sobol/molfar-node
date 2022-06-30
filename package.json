@@ -7,7 +7,7 @@
     "remove-prism": "sed -i.bak -e \":a\" -e 'N' -e '$!ba' -e \"s/<style src=\\\"prismjs.*css\\\"><\\/style>/ /\" node_modules/@vuepress/theme-default/layouts/Layout.vue",
     "test": "jest --no-cache --runInBand --forceExit",
     "start": "node --harmony server.js --prod",
-    "dev": "nodemon server",
+    "dev": "nodemon server.js --exec babel-node --presets babel-preset-env",
     "docs:oas": "widdershins -e .widdershins.yml  oas.yaml -o docs/oas/README.md",
     "docs:api": "jsdoc2md  --template docs/.config/README.hbs --files src/**/*.js  > docs/api/README.md",
     "docs:build": "npm run test && npm run docs:api && npm run docs:oas",
