@@ -4,8 +4,64 @@ const path = require("path")
 const config = require("../../config")
 const {find, remove, extend, isString} = require("lodash")
 const fse = require("fs-extra") 
+const axios     = require("axios")
 
 const DEPLOYMENT_DIR = config.service.deploymentDir
+
+
+/**
+ * @param {String} uri Адреса для запиту
+ * @param {String} method   Метод (post, get)
+ * @param {Object} data   Дані для запиту
+ * @return {Object}
+ */
+const handlerAxiosRequest = async(url, method, data) => {
+    return await sendAxiosRequest(url, method, data)
+        .then(value =>{
+            return value.data
+        })
+        .catch(value =>{
+            if(value && value.isAxiosError){
+                let answer =  {
+                    message: `HTTP answer - ${value.status ? value.status : value.code}`
+                }
+                return answer
+            }else if(value.status){
+                let answer =  {
+                    message: `HTTP answer - ${value.status}`
+                }
+                return answer
+            }
+            else{
+                return {
+                    message: `Error in process send data`
+                }
+            }
+        })
+}
+
+/**
+ * @param {String} uri Адреса для запиту
+ * @param {String} method   Метод (post, get)
+ * @param {Object} data   Дані для запиту
+ * @return {Promise}
+ */
+const sendAxiosRequest = async (uri, method, data)=>{
+    const agent =  new https.Agent({  
+           rejectUnauthorized: false
+    }) 
+    const configuration = {
+        method: method,
+        url: uri,
+        httpsAgent : agent,
+        headers: { 'Content-Type': 'application/json;charset=UTF-8', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate'},
+        responseType: 'json'
+    }
+    if(data){
+        configuration['data'] = data
+    }
+    return await axios(configuration)
+}
 
 /**
  * @param {String} servicePath Шлях розташування 
@@ -179,6 +235,7 @@ const setMicroserviceConfig = (id, config) => {
 
 
 module.exports = {
+    handlerAxiosRequest,
 	deployMicroservice,
 	startMicroservice,
 	setMicroserviceConfig,

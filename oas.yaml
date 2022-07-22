@@ -55,8 +55,6 @@ components:
       title: "Тип даних про стан контейнера"
       description: "Описує структуру даних, які передаються у відповідь на запит про стан контейнера"
       type: object
-      required:
-        - model
       properties:
         type:
           description: "Назва сервісу"
